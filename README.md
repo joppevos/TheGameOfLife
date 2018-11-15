@@ -5,7 +5,7 @@ A non-optimized version of the game of life. An evolution game determined by the
 "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway"
 ## How?
 To get started just fork or copy the `life.py` content.
-The script is written with numpy and matplotlib. 
+You will need the modules Numpy and Matplotlib
 pip install them both this way.
 
 `pip install matplotlib numpy`
@@ -13,12 +13,12 @@ pip install them both this way.
 In the dictionary seeds you can find all the names of the containing seeds.
 Place the seed in the universe by calling the name. 
 example: `strseed = 'pentadecathlon'`
-
+K
 parameters to set:
 - set the size `n = 100` for the grid size. (go easy on the size)
 - set the interval `interval=500` in milliseconds between each generation. 
 
-
+If you keep the seed empty. A random grid like the image below will be generated.
 ![giphy 1](https://user-images.githubusercontent.com/44348300/48577331-36572300-e917-11e8-8278-78e55e0bf4ef.gif)
 
 
