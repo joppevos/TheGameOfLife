@@ -67,15 +67,20 @@ def update(frameNum, img, grid, n):
 
 def main():
     # size of the grid
-    n = 150
-    grid = randomgrid(n)
+    n = 50
+    glider = False
+    if glider:
+        zeros = np.zeros((n, n))
+        grid = addglider(30, 30, zeros)
+    else:
+        grid = randomgrid(n)
 
     # set up animation
     fig, ax = plt.subplots()
-    img = ax.imshow(grid, interpolation='nearest')
+    img = ax.imshow(grid, interpolation='nearest', cmap='Purples')
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, n,),
-                                  frames=10,
-                                  interval=50,
+                                  # frames=1,
+                                  interval=100,
                                   save_count=50)
 
     plt.show()
