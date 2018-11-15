@@ -116,7 +116,7 @@ def main(seeds):
     img = ax.imshow(grid, interpolation='nearest', cmap='Purples')
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, n,),
                                   frames=25,
-                                  interval=500,
+                                  interval=50,
                                   save_count=50)
     plt.show()
 
