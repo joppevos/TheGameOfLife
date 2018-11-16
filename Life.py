@@ -103,7 +103,7 @@ def main(seeds):
     color = 'Oranges'
     # size of the grid
     n = 30
-    strseed = 'pentadecathlon'
+    strseed = ''
     v = seeds.get(strseed)
     if v != None:
         grid = np.zeros((n, n))
