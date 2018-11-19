@@ -1,18 +1,19 @@
 import c4d
 import numpy as np
-
-
-# Welcome to the world of Python
-
-
+from c4d.modules.thinkingparticles import TP_MasterSystem
 class Particle:
+
+
+# TODO: ADD RANDOM EFFECTS, COLOR, SIZE?
+# TODO: MAKE EASY TO ACCES PARAMETERS
+# TODO: MAKE A THIRD DIMENTION WITH DIFFERENT RULES
 
     def __init__(self):
         self.tp = doc.GetParticleSystem()
 
     def creatept(self):
         self.p = self.tp.AllocParticle()
-
+        return self.p
     def move(self, vec):
         self.tp.SetPosition(self.p, vec)
 
@@ -25,11 +26,11 @@ def generate(particle, grid, n, y):
     :return: new generation grid
     """
     copygrid = grid.copy()
-    tp = doc.GetParticleSystem()
     for i in range(n):
         for j in range(n):
-
-            particle.creatept()
+            p = particle.creatept()
+            basetime = c4d.BaseTime(z=3, n=False)
+            particle.tp.SetLife(p, basetime)
             total = int((grid[i, (j - 1) % n] + grid[i, (j + 1) % n] +
                          grid[(i - 1) % n, j] + grid[(i + 1) % n, j] +
                          grid[(i - 1) % n, (j - 1) % n] + grid[(i - 1) % n, (j + 1) % n] +
@@ -54,10 +55,13 @@ def generate(particle, grid, n, y):
     return grid
 
 class Render:
-    n = 20
+    n = 100
+    firstgen = True
+
     y = 200
     def __init__(self):
         self.grid = randomgrid(self.n)
+        self.seed = np.zeros((self.n, self.n))
         self.tp = doc.GetParticleSystem()
 
     def remove(self):
@@ -72,6 +76,10 @@ class Render:
         newgrid = generate(p, self.grid, self.n, self.y)
         self.grid = newgrid
         self.y += 200
+        if self.firstgen: # removes the first generation
+            self.tp.FreeAllParticles()
+            self.firstgen = False
+
 
 
 def randomgrid(n):
@@ -83,5 +91,5 @@ instance = Render()
 
 def main():
 
-    if frame % 3 == 0:
+    if frame % 2 == 0:
         instance.update()
