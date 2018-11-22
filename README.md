@@ -11,7 +11,9 @@ copy the complete content of c4d.py inside the script editor and run.
 check out the video below by clicking the image.
 [![IMAGE ALT TEXT HERE](https://user-images.githubusercontent.com/44348300/48921030-138bb800-ee9d-11e8-9ef5-286b36b37252.png
 )](https://www.youtube.com/watch?v=4DkYb_OAxb8)
-
+- set the size `n = 100` for the grid size. (go easy on the size)
+- set the interval `y=200` for y axis movement.
+- set generation timing at `frames%2`, this will generate every second frame.
 
 ## Starting in matplotlib
 To get started just fork or copy the `life.py` content.
@@ -24,7 +26,7 @@ pip install them both this way.
 In the dictionary seeds you can find all the names of the containing seeds.
 Place the seed in the universe by calling the name. 
 example: `strseed = 'pentadecathlon'`
-K
+
 parameters to set:
 - set the size `n = 100` for the grid size. (go easy on the size)
 - set the interval `interval=500` in milliseconds between each generation. 
