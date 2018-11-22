@@ -1,13 +1,46 @@
 import c4d
 import numpy as np
 from c4d.modules.thinkingparticles import TP_MasterSystem
-class Particle:
 
 
+seeds = {
+    "diehard": [
+        [0, 0, 0, 0, 0, 0, 1, 0],
+        [1, 1, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 1, 1, 1],
+    ],
+    "boat": [[1, 1, 0], [1, 0, 1], [0, 1, 0]],
+    "r_pentomino": [[0, 1, 1], [1, 1, 0], [0, 1, 0]],
+    "pentadecathlon": [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 1, 1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+    ],
+    "beacon": [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]],
+    "acorn": [[0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [1, 1, 0, 0, 1, 1, 1]],
+    "spaceship": [[0, 0, 1, 1, 0], [1, 1, 0, 1, 1], [1, 1, 1, 1, 0], [0, 1, 1, 0, 0]],
+    "block_switch_engine": [
+        [0, 0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 1, 0, 1, 1],
+        [0, 0, 0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0],
+        [1, 0, 1, 0, 0, 0, 0, 0],
+    ],
+    "infinite": [
+        [1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1],
+        [0, 1, 1, 0, 1],
+        [1, 0, 1, 0, 1],
+    ],
+}
 # TODO: ADD RANDOM EFFECTS, COLOR, SIZE?
 # TODO: MAKE EASY TO ACCES PARAMETERS
 # TODO: MAKE A THIRD DIMENTION WITH DIFFERENT RULES
 
+
+class Particle:
     def __init__(self):
         self.tp = doc.GetParticleSystem()
 
@@ -16,6 +49,7 @@ class Particle:
         return self.p
     def move(self, vec):
         self.tp.SetPosition(self.p, vec)
+
 
 def generate(particle, grid, n, y):
     """
@@ -44,7 +78,6 @@ def generate(particle, grid, n, y):
                 if total == 3:
                     copygrid[i, j] = 1
 
-
             if grid[i, j] == 1:
 
                 vec = c4d.Vector(i * 230, j * 230, y)
@@ -54,11 +87,12 @@ def generate(particle, grid, n, y):
 
     return grid
 
-class Render:
-    n = 100
-    firstgen = True
 
+class Render:
+    n = 50
+    firstgen = True
     y = 200
+
     def __init__(self):
         self.grid = randomgrid(self.n)
         self.seed = np.zeros((self.n, self.n))
@@ -70,16 +104,21 @@ class Render:
     def move(self, vec):
         self.tp.SetPosition(self.p, vec)
 
-    def update(self):
-        #self.tp.FreeAllParticles()
+    def update(self, seedsdict):
+        self.tp.FreeAllParticles()
         p = Particle()
-        newgrid = generate(p, self.grid, self.n, self.y)
+        if self.firstgen:
+            strseed = 'block_switch_engine'
+            v = seedsdict.get(strseed)
+            newgrid = generate(p, seed_placer(20, 20, self.seed, v), self.n, self.y)
+            print(newgrid)
+        else:
+            newgrid = generate(p, self.grid, self.n, self.y)
         self.grid = newgrid
-        self.y += 200
+        self.y += 0
         if self.firstgen: # removes the first generation
             self.tp.FreeAllParticles()
             self.firstgen = False
-
 
 
 def randomgrid(n):
@@ -87,9 +126,24 @@ def randomgrid(n):
     return np.random.choice([1, 0], n * n, p=[0.2, 0.8]).reshape(n, n)
 
 
+def seed_placer(i, j, grid, seed):
+    """ a glider seed to add to the grid universe
+    :param i is x position on grid
+    :param j is y position on grid
+    :param grid is the given universe
+    :param seed is type of seed array
+    :return grid with seed glider placed
+    """
+    shape = np.shape(seed)
+
+    grid[i:i + shape[0], j:j + shape[1]] = seed
+    return grid
+
+
 instance = Render()
+
 
 def main():
 
     if frame % 2 == 0:
-        instance.update()
+        instance.update(seeds)
