@@ -3,10 +3,21 @@
 # The Game Of Life
 A non-optimized version of the game of life. An evolution game determined by the first planted seed.
 "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway"
-## How?
+
+## Starting in Cinema4D
+To get started in Cinema 4D, you have to extract numpy in `{cinemaversion}/library/python/packages/{osx/win64}.`
+copy the complete content of c4d.py inside the script editor and run. 
+
+check out the video below by clicking the image.
+[![IMAGE ALT TEXT HERE](https://user-images.githubusercontent.com/44348300/48920945-5731f200-ee9c-11e8-9899-4b5bde1d0c44.png
+)](https://www.youtube.com/watch?v=4DkYb_OAxb8)
+
+
+## Starting in matplotlib
 To get started just fork or copy the `life.py` content.
 You will need the modules Numpy and Matplotlib
 pip install them both this way.
+
 
 `pip install matplotlib numpy`
 
@@ -21,11 +32,3 @@ parameters to set:
 If you keep the seed empty. A random grid like the image below will be generated.
 ![giphy 1](https://user-images.githubusercontent.com/44348300/48577331-36572300-e917-11e8-8278-78e55e0bf4ef.gif)
 
-
-
-### To-do
-Optimize the loop.
-
-The game is made for a 2D array, but would also be possible in 3D. 
-When I find the time I will try to make a setup in Cinema 4d. 
-The number of possible neighbours will be 25 instead of 8, so there have to be some adjustment to the 'rules'.
