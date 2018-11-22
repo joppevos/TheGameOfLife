@@ -9,7 +9,7 @@ To get started in Cinema 4D, you have to extract numpy in `{cinemaversion}/libra
 copy the complete content of c4d.py inside the script editor and run. 
 
 check out the video below by clicking the image.
-[![IMAGE ALT TEXT HERE](https://user-images.githubusercontent.com/44348300/48920945-5731f200-ee9c-11e8-9899-4b5bde1d0c44.png
+[![IMAGE ALT TEXT HERE](https://user-images.githubusercontent.com/44348300/48921030-138bb800-ee9d-11e8-9ef5-286b36b37252.png
 )](https://www.youtube.com/watch?v=4DkYb_OAxb8)
 
 
